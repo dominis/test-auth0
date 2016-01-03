@@ -1,5 +1,7 @@
 sudo: false
 language: shell
+before_script:
+  - npm install -g wt-cli
 script:
 - make dist-addon
 - make deploy-webtask
