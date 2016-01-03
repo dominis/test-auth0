@@ -1,10 +1,17 @@
 sudo: false
 language: shell
+env:
+  global:
+  - secure: YjtAF62dEMUE9IHRlktONfizEplQEzhvafKiPEbB+Ejut3VSFn3pNUqM8D2EMdouynBk6xBbZOkiHsUW7Swq7S9BDs1rs2XdGog+V2eekMkxYU1UbpzNOZ3vkThB7nvCvI/CY10ALspywEaCI8kyTncr2Ltp9FBzowMq7X0LeTfo79RJnexv8WC+N0Ju7ujXFFXm/HcyduDHcQDN/SujRIgalWEDkS/c7RllxrsUAXNWzPSVBfFCwvskBMrRI4jaByuCCdgtCTNm/dEespiCiEM/ERp5oiWlVzfmDJrT8UlfrxQEO91VVON8c+KtWj9CbLBVWC4gMcu5cX+mIdqU3mZnNHqoOPjy2nZ0AbUC/Sro12siCVd2WJWXOkETVwNHT8K9cwhduGVsKwNL+NPDC3zPCYQJnG3XpM/rcI75z6PWWK9Jii+wkB6ZKubq+Y1L98SwAWgtTmVjOknYF+NKXlWhoD48dLdQKMEet2suQENp8w5XFk1JOvu6mV6hik26ar53ZZhZsHodOZDHt9EEkVNHACw5jCTq9SSlpccMZVP+lWguNInhIrAx6I4aIS/D8bJ7PdTAplXFvSfh8eCBzgGxuyOJyj+syJSFmNWHpOZOBAXcD48VUHRjPGeazoZHnIkDEHKKUZUE1Ie726kkE0eBKmPs2z9MU/c/V7sBQx8=
+  - secure: jMQY4I7eZOfzMUv4VHg1s9scqXj5MIHO2qLpgImHi37g8OIeaB/t8V1uuAGwaWBsRPRm/fAZdMJqzzQlvbZnFR0OsV+JjvZ3+NSEn8rI2qyKNdnJhBG6ZN4lyoHx7vWOZnyTZ+Z3DiIqPgeMPybeLJLyn4RSXwhGdaLM5UZYZQgjsPnKwIirVVl/2akoh+d8wr8hvdedfkbKUrXKdDAMZ59VzzqAxKfTuWNAfm6FaVkS1CntteZ8skM5nN5tTrhq6bet8M5Q3HZ7CklLmCeRzcG+4FCE6CVH51aA3UmdyvuBDBakNPVNJ5Eo2b1sYGQuDEob7/ojbqaKQnwkGf76yxgUUrZmmKSVXzAwX75A/NaIQsuJqurpmLjDuaWy/MAFwNYq5IZA/Wxm/Ifef/BxAwhTc/1BNHX5Hpw8PDj25PmWCYQ1rfIhNkBY+bQdu8DN9uKw+GdDArUOP86taTaTdNNYBORThKrAmzk4gLIqyzzkYX+8rFA17iBww13ySImR+9/34qW0/aL0o08xwjdPL0ikGBucUOCKe0D3/VhjCiDySbLBOuUh3sC7CQ3FEDc2MExK418qmS46O5xSH2hZ2eWkXJ2Js1TUERFyyWP2u8XktvUBpBOy5DwNW3M585Q1j0B805C5fZ1xbPtLHzyDMdKIyEKDjH0yJim18QOYQDI=
 before_script:
   - npm install -g wt-cli
+  - sed -i s/##CONTAINER##/${WT_CONTAINER}/g ./resources/webtask.conf
+  - sed -i s/##TOKEN##/${WT_TOKEN}/g ./resources/webtask.conf
+  - mv ./resources/webtask ~/.webtask
 script:
-- make dist-addon
-- make deploy-webtask
+  - make dist-addon
+  - make deploy-webtask
 notifications:
   email: false
 deploy:
