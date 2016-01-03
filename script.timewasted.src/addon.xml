@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.timewasted"
+       name="TimeWasted"
+       version="##VERSION##"
+       provider-name="Nandor Sivok">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+    <import addon="script.module.requests" version="2.9.1"/>
+  </requires>
+  <extension point="xbmc.service" library="default.py" start="login"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">TimeWasted</summary>
+    <description lang="en">This is just a pilot project sending data to webtask.io</description>
+    <platform>all</platform>
+    <language>en</language>
+    <source>https://github.com/dominis/test-auth0</source>
+    <email>dominis at haxor dot hu</email>
+  </extension>
+</addon>
+

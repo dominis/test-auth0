@@ -1,24 +1,23 @@
-.PHONY: all build-addon deploy-webtask clean
+SRC = script.timewasted.src
+DEST = script.timewasted
+VERSION = 0.$(shell date +%s)
 
-all: clean build-ami plan apply
+dist-addon: clean pack-addon
 
-build-addon:
-	src = script.timewasted.src
-	dest = script.timewasted
+pack-addon:
+	mkdir -p $(DEST)
 
-	rm -rf $(dest)
-	rm $(dest)-0.1.zip
+	cp $(SRC)/addon.xml $(DEST)/
+	sed -i s/##VERSION##/$(VERSION)/g $(DEST)/addon.xml
+	cp $(SRC)/icon.png $(DEST)/
+	cp $(SRC)/*.py $(DEST)/
 
-	mkdir -p $(dest)
-
-	cp $(src)/addon.xml $(dest)/
-	cp $(src)/*.txt $(dest)/
-	cp $(src)/icon.png $(dest)/
-	cp $(src)/*.py $(dest)/
-	cp -r $(src)/resources $(dest)/
-
-	zip -r $(dest)-0.1.zip $(dest)
-	rm -rf $(dest)
+	zip -r $(DEST)-$(VERSION).zip $(DEST)
+	rm -rf $(DEST)
 
 deploy-webtask:
-	http $(wt create webtask/dummy.js)
+	wt create webtask/dummy.js
+
+clean:
+	rm -rf $(DEST)
+	rm -rf $(DEST)*.zip

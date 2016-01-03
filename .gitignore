@@ -1,5 +1,6 @@
 build.sh
 tags
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
