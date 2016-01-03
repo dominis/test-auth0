@@ -6,9 +6,9 @@ env:
   - secure: jMQY4I7eZOfzMUv4VHg1s9scqXj5MIHO2qLpgImHi37g8OIeaB/t8V1uuAGwaWBsRPRm/fAZdMJqzzQlvbZnFR0OsV+JjvZ3+NSEn8rI2qyKNdnJhBG6ZN4lyoHx7vWOZnyTZ+Z3DiIqPgeMPybeLJLyn4RSXwhGdaLM5UZYZQgjsPnKwIirVVl/2akoh+d8wr8hvdedfkbKUrXKdDAMZ59VzzqAxKfTuWNAfm6FaVkS1CntteZ8skM5nN5tTrhq6bet8M5Q3HZ7CklLmCeRzcG+4FCE6CVH51aA3UmdyvuBDBakNPVNJ5Eo2b1sYGQuDEob7/ojbqaKQnwkGf76yxgUUrZmmKSVXzAwX75A/NaIQsuJqurpmLjDuaWy/MAFwNYq5IZA/Wxm/Ifef/BxAwhTc/1BNHX5Hpw8PDj25PmWCYQ1rfIhNkBY+bQdu8DN9uKw+GdDArUOP86taTaTdNNYBORThKrAmzk4gLIqyzzkYX+8rFA17iBww13ySImR+9/34qW0/aL0o08xwjdPL0ikGBucUOCKe0D3/VhjCiDySbLBOuUh3sC7CQ3FEDc2MExK418qmS46O5xSH2hZ2eWkXJ2Js1TUERFyyWP2u8XktvUBpBOy5DwNW3M585Q1j0B805C5fZ1xbPtLHzyDMdKIyEKDjH0yJim18QOYQDI=
 before_script:
   - npm install -g wt-cli
-  - sed -i s/##CONTAINER##/${WT_CONTAINER}/g ./resources/webtask.conf
-  - sed -i s/##TOKEN##/${WT_TOKEN}/g ./resources/webtask.conf
-  - mv ./resources/webtask.conf ~/.webtask
+  - cp ./resources/webtask.conf ~/.webtask
+  - sed -i s/##CONTAINER##/${WT_CONTAINER}/g ~/.webtask
+  - sed -i s/##TOKEN##/${WT_TOKEN}/g ~/.webtask
 script:
   - make dist-addon
   - make deploy-webtask
