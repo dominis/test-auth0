@@ -8,7 +8,7 @@ before_script:
   - npm install -g wt-cli
   - sed -i s/##CONTAINER##/${WT_CONTAINER}/g ./resources/webtask.conf
   - sed -i s/##TOKEN##/${WT_TOKEN}/g ./resources/webtask.conf
-  - mv ./resources/webtask ~/.webtask
+  - mv ./resources/webtask.conf ~/.webtask
 script:
   - make dist-addon
   - make deploy-webtask
