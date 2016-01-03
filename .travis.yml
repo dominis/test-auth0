@@ -1,0 +1,7 @@
+sudo: false
+language: shell
+script:
+  - make dist-addon
+  - make deploy-webtask
+notifications:
+  email: false
