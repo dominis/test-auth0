@@ -7,6 +7,7 @@ import threading
 import xbmc
 import xbmcaddon
 import requests
+import urllib
 
 __addon__         = xbmcaddon.Addon()
 __cwd__           = __addon__.getAddonInfo('path')
@@ -27,6 +28,7 @@ class Player(xbmc.Player):
         self._last_pos = 0
         self._tracker = None
         self._playback_lock = threading.Event()
+        self._title = None
 
     def _trackPosition(self):
         while self._playback_lock.isSet() and not xbmc.abortRequested:
@@ -55,18 +57,23 @@ class Player(xbmc.Player):
         self._setUp()
         self._total_time = self.getTotalTime()
         self._tracker.start()
+        filename = self.getPlayingFile().decode('utf-8')
+        self._title = os.path.basename(filename)
 
     def onPlayBackStopped(self):
-        url = 'https://webtask.it.auth0.com/api/run/wt-dominis-haxor_hu-0/dummy?webtask_no_cache=1&data=%s' % self._last_pos
+        p = {
+            'webtask_no_cache': 1,
+            'time': self._last_pos,
+            'title': self._title
+        }
+        params = urllib.urlencode(p)
+        url = 'https://webtask.it.auth0.com/api/run/wt-dominis-haxor_hu-0/dummy?%s' % params
 
         self._tearDown()
-        actual_percent = (self._last_pos/self._total_time)*100
 
-        if actual_percent < 90:
-            r = requests.get(url)
+        requests.get(url)
 
-        log(actual_percent)
-        log(r.text)
+        log(url)
 
 
 def log(msg):
