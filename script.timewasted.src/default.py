@@ -24,6 +24,7 @@ class Player(xbmc.Player):
 
     def __init__(self):
         xbmc.Player.__init__(self)
+        self._wt_url = 'https://webtask.it.auth0.com/api/run/wt-dominis-haxor_hu-0/save?%s'
         self._total_time = 999999
         self._last_pos = 0
         self._tracker = None
@@ -67,7 +68,7 @@ class Player(xbmc.Player):
             'title': self._title
         }
         params = urllib.urlencode(p)
-        url = 'https://webtask.it.auth0.com/api/run/wt-dominis-haxor_hu-0/dummy?%s' % params
+        url = self._wt_url % params
 
         self._tearDown()
 

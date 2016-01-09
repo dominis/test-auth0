@@ -16,7 +16,8 @@ pack-addon:
 	rm -rf $(DEST)
 
 deploy-webtask:
-	wt create webtask/dummy.js --secret REDIS_PASS=${REDIS_PASS}
+	wt create webtask/save.js --secret REDIS_PASS=${REDIS_PASS}
+	wt create webtask/timewasted.js --secret REDIS_PASS=${REDIS_PASS}
 
 clean:
 	rm -rf $(DEST)
